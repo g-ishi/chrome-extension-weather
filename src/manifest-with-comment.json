@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Boilerplate Extension",
+  "description": "Chrome Extension boilerplate in react and typescript",
+  "version": "1.0.0",
+  "_comment": "このiconsはChromeStoreやExtensionの管理画面などで表示される。Webpackでmanifestファイルと同じ階層にコピーするようにしているのでこのパスで読み込めている。",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "_comment": "actionはextensionアイコンのボタンを押したときに起動するファイル定義",
+  "action": {
+    "_comment": "popup.htmlファイルはwebpack.config.jsの設定で自動的に作成されるようにしてる",
+    "default_popup": "popup.html",
+    "default_title": "Boilerplate Extension",
+    "_comment": "このiconsはブラウザのツールバーで表示される。Webpackでmanifestファイルと同じ階層にコピーするようにしているのでこのパスで読み込めている。",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "_comment": "options_pageの方はdeprecated予定らしい",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "_comment": "ブラウザーが起動している間、バックグラウンドで実行され続けるプロセス。拡張機能が必要とする持続的な状態の保持、イベントリスニング（例えば、ブラウザーアクションのクリックや外部サーバーからのメッセージなど）、他のコンポーネントとの通信などを担当",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "_comment": "コンテンツスクリプトは、特定のウェブページのコンテクスト内で実行されるJavaScriptファイルです。これにより、拡張機能はウェブページのDOMにアクセスして操作したり、ユーザーインターフェイスの変更、ページ内での特定イベントのハンドリングなどが可能になります。",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ]
+}
