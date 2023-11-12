@@ -1,7 +1,9 @@
-console.log('Backend script running...');
+import { setStoredCities, setStoredOptions } from '../utils/storage';
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  console.log(msg);
-  console.log(sender);
-  sendResponse('From the background script!');
+chrome.runtime.onInstalled.addListener(() => {
+  // local storageの初期化(初期値の設定)
+  setStoredCities([]);
+  setStoredOptions({
+    tempScale: 'metric',
+  });
 });

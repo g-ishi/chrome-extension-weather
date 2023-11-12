@@ -29,12 +29,25 @@ typescript コンパイラ(tsc)で、typescript コードを javascript コー�
    - `webpack-merge`ライブラリを使って`webpack.prod.js`と`webpack.dev.js`ファイルを用意し、`webpack.common.js`を継承し、必要な設定値のみを上書きするようにする
    - 作業内容は[こちらのコミット](https://github.com/g-ishi/chrome-extension-boillerplate/commit/3df7104ad6beb830f75b2f2ec9bd9209d8976388)を参照
 
+<!-- TODO: template側への反映 -->
+
+### デバック
+
+- Chrome Extension に対して DevTool を開くには、ChromeExtension のポップアップ画面で右クリックをして、「検証(Inspect)」を押す。
+
 ### memo
 
 - ライブラリを全て devdependencies でインストールしている理由
 
   - 最終的に１つの js ファイルにするだけだから、全部の node モジュールが devdependency の扱いになる。
   - dev-dependency にしても、コードから import されてるものは build アセットに含まれるから大丈夫。
+
+- popup から options を変更するには
+
+  - Local Storage に保存して、それの値を options と popup の両方で使うようにする
+
+- local storage を使うときは、background-script で初期化をしておくのがよい。
+  - undefined の場合を気にしなくて良くなるので。
 
 ### 使い方
 

@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Boilerplate Extension",
-  "description": "Chrome Extension boilerplate in react and typescript",
+  "name": "Weather Extension",
+  "description": "Weather Extension of chrome extension",
   "version": "1.0.0",
+  "permissions": ["storage"],
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
@@ -10,7 +11,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Boilerplate Extension",
+    "default_title": "Weather Extension",
     "default_icon": {
       "16": "icon.png",
       "48": "icon.png",
