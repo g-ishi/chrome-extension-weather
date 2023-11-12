@@ -52,6 +52,8 @@ typescript コンパイラ(tsc)で、typescript コードを javascript コー�
 
 - .env ファイルを使うには`dotenv-webpack`を構成する
 
+- chrome-extension の option 設定は local storage に保存する
+
 ### 使い方
 
 TBD
