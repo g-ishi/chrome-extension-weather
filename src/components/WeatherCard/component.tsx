@@ -11,7 +11,7 @@ import {
   OpenWeatherData,
   OpenweatherTempScale,
   fetchOpenWeatherData,
-} from '../../../utils/api';
+} from '../../utils/api';
 
 type WeatherCardContainerProps = {
   children: React.ReactNode;

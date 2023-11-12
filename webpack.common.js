@@ -21,7 +21,7 @@ module.exports = {
     popup: path.resolve('src/popup/popup.tsx'),
     options: path.resolve('src/options/options.tsx'),
     background: path.resolve('src/background/background.ts'),
-    contentScript: path.resolve('src/contentScript/contentScript.ts'),
+    contentScript: path.resolve('src/contentScript/contentScript.tsx'),
   },
   // バンドルするときの追加ルールを定義する
   module: {
@@ -108,9 +108,15 @@ module.exports = {
   optimization: {
     // chunk間でモジュールの共有を行う。
     // 今回で言うとreactモジュールはpopupとoptionsで共通して使っているので、chunk間でのモジュール共有を有効にするとdistのファイルサイズ節約になる
-    // 共有されるファイルは「vnedros-node_**」の名前で共有モジュールとしてバンドルされる
+    // 共有されるファイルは「vendors-node_**」の名前で共有モジュールとしてバンドルされる
     splitChunks: {
-      chunks: 'all',
+      // すべてのentryでchunkの共有を行う
+      // chunks: 'all',
+
+      // contentScript以外でchunk共有を行う
+      chunks(chunk) {
+        return chunk.name !== 'contentScript';
+      },
     },
   },
 };

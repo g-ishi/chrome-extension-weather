@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Box, InputBase, IconButton, Paper, Grid } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import './popup.css';
-import WeatherCard from './components/WeatherCard/component';
+import WeatherCard from '../components/WeatherCard/component';
 import {
   setStoredCities,
   getStoredCities,
