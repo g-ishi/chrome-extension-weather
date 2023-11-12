@@ -1,6 +1,3 @@
-// APIキーを隠蔽するにはバックエンドサーバを用意する
-const OPEN_WEATHER_API_KEY = 'c07853e3f287d7488f818a7ccf730c6a';
-
 // 使うデータのデータ型だけ定義すればいいっぽいことを言っていた
 export type OpenWeatherData = {
   name: string;
@@ -31,7 +28,7 @@ export async function fetchOpenWeatherData(
 ): Promise<OpenWeatherData> {
   // TODO: unitはあとでoptionで指定できるようにする
   const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${OPEN_WEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${process.env.OPEN_WEATHER_API_KEY}`
   );
 
   // ステータスコードが200-299であればOK

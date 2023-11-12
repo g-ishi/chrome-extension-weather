@@ -2,6 +2,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 // webpack での`development`と`production`での生成物は両方読み込まれるとサイズが大きくなってしまうので、`webpack-clean-plugin`で生成前に`dist`ディレクトリを綺麗にする。
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -83,6 +84,12 @@ module.exports = {
       filename: 'options.html',
       chunks: ['options'],
     }),
+    // .envを使うためのプラグイン
+    new Dotenv(),
+    // TODO: 以下の形でdevとproductionで環境変数ファイルを変えられるようにしたい。
+    // new Dotenv({
+    //   path: './some.other.env', // .envファイルのパスを指定
+    // }),
   ],
   resolve: {
     // モジュールをimportするときに解決する拡張子

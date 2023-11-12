@@ -47,7 +47,10 @@ typescript コンパイラ(tsc)で、typescript コードを javascript コー�
   - Local Storage に保存して、それの値を options と popup の両方で使うようにする
 
 - local storage を使うときは、background-script で初期化をしておくのがよい。
+
   - undefined の場合を気にしなくて良くなるので。
+
+- .env ファイルを使うには`dotenv-webpack`を構成する
 
 ### 使い方
 
