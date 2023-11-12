@@ -6,6 +6,7 @@ export type LocalStorage = {
 };
 
 export type LocalStorageOptions = {
+  homeCity: string;
   tempScale: OpenweatherTempScale;
 };
 
