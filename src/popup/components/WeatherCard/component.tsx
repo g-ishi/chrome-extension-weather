@@ -7,7 +7,11 @@ import {
   Typography,
   Box,
 } from '@mui/material';
-import { OpenWeatherData, fetchOpenWeatherData } from '../../../utils/api';
+import {
+  OpenWeatherData,
+  OpenweatherTempScale,
+  fetchOpenWeatherData,
+} from '../../../utils/api';
 
 type WeatherCardContainerProps = {
   children: React.ReactNode;
@@ -38,15 +42,21 @@ type WeatherCardState = 'loading' | 'error' | 'ready';
 
 type WeatherCardProps = {
   city: string;
+  tempScale: OpenweatherTempScale;
   onDelete?: () => void;
 };
 
-const WeatherCard: React.FC<WeatherCardProps> = ({ city, onDelete }) => {
+const WeatherCard: React.FC<WeatherCardProps> = ({
+  city,
+  tempScale,
+  onDelete,
+}) => {
   const [weatherData, setWeatherData] = useState<OpenWeatherData | null>(null);
   const [cardState, setCardState] = useState<WeatherCardState>('loading');
 
+  // 際レンダリングされる場合でも、依存配列の変数に変化がない場合は再実行はされない
   useEffect(() => {
-    fetchOpenWeatherData(city)
+    fetchOpenWeatherData(city, tempScale)
       .then((data) => {
         setWeatherData(data);
         setCardState('ready');
@@ -55,7 +65,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ city, onDelete }) => {
         console.error(e);
         setCardState('error');
       });
-  }, [city]);
+  }, [city, tempScale]);
 
   if (cardState === 'loading') {
     return (

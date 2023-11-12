@@ -29,7 +29,7 @@ const App: React.FC = () => {
       return;
     }
 
-    // ここの処理順はどっちが先がいいんだろう。。。
+    // ここの処理順はlocal storageとstateでは、local storageの方を先に更新した方がいい気がする
     const updatedCities = [...cities, cityInput];
     setStoredCities(updatedCities).then(() => {
       setCities(updatedCities);
@@ -47,6 +47,16 @@ const App: React.FC = () => {
     });
   };
 
+  const handleTempScaleButtonClick = () => {
+    const updateOptions: LocalStorageOptions = {
+      ...options,
+      tempScale: options.tempScale === 'metric' ? 'imperial' : 'metric',
+    };
+    setStoredOptions(updateOptions).then(() => {
+      setOptions(updateOptions);
+    });
+  };
+
   // この後の処理で、optionsを使うのでlocal storageからの読み出しが完了するのをまつ。
   // local storageからの読み出しは、非常に短い時間(ユーザが気が付かないくらいの時間)で完了するのでローディングアイコンとかはださなくても大丈夫。
   if (!options) {
@@ -56,7 +66,7 @@ const App: React.FC = () => {
   return (
     <>
       <Box mx='8px' my='16px'>
-        <Grid container>
+        <Grid container justifyContent={'space-evenly'} alignItems={'center'}>
           <Grid item>
             <Paper>
               <Box px='15px' py='5px'>
@@ -75,12 +85,23 @@ const App: React.FC = () => {
               </Box>
             </Paper>
           </Grid>
+          <Grid item>
+            <Paper>
+              <Box>
+                <IconButton onClick={handleTempScaleButtonClick}>
+                  {/* 天気の単位はユニコードで定義されてるので、アイコン画像とかを使う必要はない */}
+                  {options.tempScale === 'metric' ? '\u2103' : '\u2109'}
+                </IconButton>
+              </Box>
+            </Paper>
+          </Grid>
         </Grid>
       </Box>
       {cities.map((city, index) => {
         return (
           <WeatherCard
             city={city}
+            tempScale={options.tempScale}
             key={index}
             // 関数に引数を渡した状態のハンドラーを渡したい場合は関数でラップする
             // Closerの形

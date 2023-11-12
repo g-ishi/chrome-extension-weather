@@ -24,11 +24,12 @@ export type OpenWeatherData = {
 export type OpenweatherTempScale = 'metric' | 'imperial';
 
 export async function fetchOpenWeatherData(
-  city: string
+  city: string,
+  tempScale: OpenweatherTempScale
 ): Promise<OpenWeatherData> {
   // TODO: unitはあとでoptionで指定できるようにする
   const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${process.env.OPEN_WEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${tempScale}&APPID=${process.env.OPEN_WEATHER_API_KEY}`
   );
 
   // ステータスコードが200-299であればOK
