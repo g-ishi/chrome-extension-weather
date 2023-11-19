@@ -12,6 +12,7 @@ import {
   OpenweatherTempScale,
   fetchOpenWeatherData,
 } from '../../utils/api';
+import './component.css';
 
 type WeatherCardContainerProps = {
   children: React.ReactNode;
@@ -28,7 +29,11 @@ const WeatherCardContainer: React.FC<WeatherCardContainerProps> = ({
         <CardContent>{children}</CardContent>
         <CardActions>
           {onDelete && (
-            <Button color='secondary' onClick={onDelete}>
+            <Button
+              className='weatherCard-body'
+              color='secondary'
+              onClick={onDelete}
+            >
               Delete
             </Button>
           )}
@@ -70,7 +75,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
   if (cardState === 'loading') {
     return (
       <WeatherCardContainer onDelete={onDelete}>
-        <Typography variant='body1'>Loading...</Typography>
+        <Typography className='weatherCard-body'>Loading...</Typography>
       </WeatherCardContainer>
     );
   }
@@ -78,7 +83,8 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
   if (cardState === 'error') {
     return (
       <WeatherCardContainer onDelete={onDelete}>
-        <Typography variant='body1'>
+        <Typography className='weatherCard-title'>city: {city}</Typography>
+        <Typography className='weatherCard-body'>
           Error: could not retrieve weather data for this city.
         </Typography>
       </WeatherCardContainer>
@@ -87,11 +93,11 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
 
   return (
     <WeatherCardContainer onDelete={onDelete}>
-      <Typography variant='h5'>{weatherData.name}</Typography>
-      <Typography variant='body1'>
+      <Typography className='weatherCard-title'>{weatherData.name}</Typography>
+      <Typography className='weatherCard-body'>
         {Math.round(weatherData.main.temp)}
       </Typography>
-      <Typography variant='body1'>
+      <Typography className='weatherCard-body'>
         feels_like: {Math.round(weatherData.main.feels_like)}
       </Typography>
     </WeatherCardContainer>

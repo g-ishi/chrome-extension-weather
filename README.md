@@ -64,6 +64,7 @@ typescript コンパイラ(tsc)で、typescript コードを javascript コー�
 - content script で挿入した css はページ自体の css に上書きされることがある
 
   - 簡単な解決策は、`!important`をプロパティにつけること
+  - 動作確認もできれば複数のページで行った方がいい
 
 - popup 側からに限らず、いまアクティブなタブに対してメッセージを送るには`chrome.tabs.sendMessage`が使える
   - メッセージを受け取る側は、`chrome.runtime.onMessage.addListener`を使ってメッセージを受け取る
