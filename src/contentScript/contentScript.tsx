@@ -4,6 +4,7 @@ import { Card } from '@mui/material';
 import './contentScript.css';
 import WeatherCard from '../components/WeatherCard/component';
 import { LocalStorageOptions, getStoredOptions } from '../utils/storage';
+import { Messages } from '../utils/messages';
 
 /**
  * 画面の右側にスペースを作ってそこに要素を挿入
@@ -48,6 +49,22 @@ const App: React.FC<{}> = () => {
       setIsActive(options.hasAutoOverlay);
     });
   }, []);
+
+  const handleMessages = (msg: Messages) => {
+    if (msg === Messages.TOGGLE_OVERLAY) {
+      setIsActive(!isActive);
+    }
+  };
+
+  // メッセージを受け取るListenerの設定をする
+  // dependencyにisActiveを設定しないと、毎回同じ値を設定するようなListenerになってしまうので注意
+  // listenerはちゃんと破棄しないとメモリーリークを起こすので注意
+  useEffect(() => {
+    chrome.runtime.onMessage.addListener(handleMessages);
+    return () => {
+      chrome.runtime.onMessage.removeListener(handleMessages);
+    };
+  }, [isActive]);
 
   if (!options) {
     return null;
