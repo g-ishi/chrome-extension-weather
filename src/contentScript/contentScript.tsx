@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Card } from '@mui/material';
 import './contentScript.css';
 import WeatherCard from '../components/WeatherCard/component';
+import { LocalStorageOptions, getStoredOptions } from '../utils/storage';
 
 /**
  * 画面の右側にスペースを作ってそこに要素を挿入
@@ -37,10 +38,34 @@ import WeatherCard from '../components/WeatherCard/component';
 // root.render(<App />);
 
 const App: React.FC<{}> = () => {
+  // optionから設定値を取得
+  const [options, setOptions] = useState<LocalStorageOptions | null>(null);
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    getStoredOptions().then((options) => {
+      setOptions(options);
+      setIsActive(options.hasAutoOverlay);
+    });
+  }, []);
+
+  if (!options) {
+    return null;
+  }
+
+  // isActiveの時のみ表示するようにする
   return (
-    <Card className='overlayCard'>
-      <WeatherCard city='Toronto' tempScale='metric' />
-    </Card>
+    <>
+      {isActive && (
+        <Card className='overlayCard'>
+          <WeatherCard
+            city={options.homeCity}
+            tempScale={options.tempScale}
+            onDelete={() => setIsActive(false)}
+          />
+        </Card>
+      )}
+    </>
   );
 };
 

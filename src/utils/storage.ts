@@ -6,6 +6,7 @@ export type LocalStorage = {
 };
 
 export type LocalStorageOptions = {
+  hasAutoOverlay: boolean;
   homeCity: string;
   tempScale: OpenweatherTempScale;
 };

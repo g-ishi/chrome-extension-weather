@@ -9,6 +9,7 @@ import {
   Typography,
   Grid,
   TextField,
+  Switch,
 } from '@mui/material';
 import {
   setStoredOptions,
@@ -48,6 +49,13 @@ const App: React.FC<{}> = () => {
     });
   };
 
+  const handleAutoOverlayChange = (hasAutoOverlay: boolean) => {
+    setOptions({
+      ...options,
+      hasAutoOverlay,
+    });
+  };
+
   // この後の処理で、optionsを使うのでlocal storageからの読み出しが完了するのをまつ。
   // local storageからの読み出しは、非常に短い時間(ユーザが気が付かないくらいの時間)で完了するのでローディングアイコンとかはださなくても大丈夫。
   if (!options) {
@@ -72,6 +80,19 @@ const App: React.FC<{}> = () => {
                 placeholder='Enter a home city name'
                 onChange={(event) => {
                   handleHomeCityChange(event.target.value);
+                }}
+                disabled={isFieldsDisabled}
+              />
+            </Grid>
+            <Grid item>
+              <Typography variant='body1'>
+                Auto toggle overlay on load
+              </Typography>
+              <Switch
+                color='primary'
+                checked={options.hasAutoOverlay}
+                onChange={(event, checked) => {
+                  handleAutoOverlayChange(checked);
                 }}
                 disabled={isFieldsDisabled}
               />
