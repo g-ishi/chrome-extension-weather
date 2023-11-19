@@ -55,10 +55,14 @@ typescript コンパイラ(tsc)で、typescript コードを javascript コー�
 - chrome-extension の option 設定は local storage に保存する
 
 - extension を表示しているページに html/css/js を inject するには、content scripts を使う
+
   - extension の content script は開いているページに一緒に読み込まれるため。
   - content script で react を使うには、webpack の設定も合わせて変更する必要がある
   - option と popup で共に使われているものは共通のベンダーファイルにまとめられるが、content script の実行環境ではそのベンダーファイルは存在しない。
     - そのため、content script ないに実行に必要なすべてのモジュールがバンドルされるように設定する必要がある。
+
+- content script で挿入した css はページ自体の css に上書きされることがある
+  - 簡単な解決策は、`!important`をプロパティにつけること
 
 ### 使い方
 
