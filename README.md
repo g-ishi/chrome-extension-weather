@@ -67,9 +67,27 @@ typescript コンパイラ(tsc)で、typescript コードを javascript コー�
   - 動作確認もできれば複数のページで行った方がいい
 
 - popup 側からに限らず、いまアクティブなタブに対してメッセージを送るには`chrome.tabs.sendMessage`が使える
+
   - メッセージを受け取る側は、`chrome.runtime.onMessage.addListener`を使ってメッセージを受け取る
   - Listener の追加は、useEffect でコンポーネントの読み込み時にした方がいい。
   - unmount 時の処理も忘れずに。
+
+- ブラウザページ内で右クリックした時のメニューの制御は、background script で行う。
+
+  - メニューを表示する領域を contexts プロパティで指定できる
+
+- background script(service worker) で追加した event listener は明示的に削除しなくても OK らしい。
+
+  - 拡張機能が無効化されるかアンインストールされると、自動的にこれらのリソースをクリーンアップされるため。
+
+- background script(service worker)は処理が終わったら Inactive になる。
+
+  - 必要な時だけ起動して処理を行うバッチのようなものとイメージするべき。
+
+- service worker の起動タイミングは以下
+  - ブラウザの起動時、拡張機能のアイコンのクリック、特定のイベント(タブの更新、アラーム、HTTP リクエスト、メッセージの受信など、拡張機能が登録した特定のイベント)の発生時
+  - service worker は起動のタイミングが難しいので(デバック方法もよくわかんないし)、何か定期的に実行させたい場合は、alarm と組み合わせるのがいい。
+  - 任意のタイミングで実行させたい場合は、message。
 
 ### 使い方
 

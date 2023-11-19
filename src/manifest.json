@@ -3,7 +3,7 @@
   "name": "Weather Extension",
   "description": "Weather Extension of chrome extension",
   "version": "1.0.0",
-  "permissions": ["storage"],
+  "permissions": ["storage", "contextMenus", "alarms"],
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
